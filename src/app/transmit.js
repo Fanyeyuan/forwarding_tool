@@ -8,9 +8,11 @@ const defaultPk = '75b644204a06489ab8a83091c2137456'
 const eleTable = db.get('params')
 
 const transDataFormat = (id, data) => {
+    let time = new Date().getTime()
     let result = {
         id,
         method:  "thing.event.property.post",
+        timeStamp: parseInt(time/1000),
         params: {
             status: 1,
             data: {}
@@ -99,7 +101,7 @@ const upload = (id, data) => {
     // console.log(typeof data, data)
     if(!!id && !!data && data.length){
         let pk = getProductKey(id)
-        data = transDataFormat(id, data)
+        data = transDataFormat(jt.topic.splitDeviceName(id), data)
         console.log(pk)
         jt.uploadData(pk, jt.topic.splitDeviceName(id),JSON.stringify(data))
     }
