@@ -14,7 +14,7 @@ module.exports = {
       // In order to connect to websocket.
       externals: ['mqtt'],
       builderOptions: {
-        productName: '平台转发工具',
+        productName: 'forwarding_tool',
         "appId": "com.flight.transmit",
         win: {
           icon: './public/app.ico',
@@ -27,12 +27,7 @@ module.exports = {
               ]
             }
           ],
-          publish: [
-            {
-              "provider": 'generic',
-              url: "http://updater.flight.com:8000/release/" //更新服务器地址,可为空
-            }
-          ]
+          publish: ['github']
         },
         mac: {
           icon: './public/icon.icns',

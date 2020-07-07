@@ -2,7 +2,8 @@
 import { autoUpdater } from "electron-updater"
 import {log} from '../common/log';
 
-const updateUrl = 'http://updater.flight.com:8000/release/'
+// const updateUrl = 'http://updater.flight.com:8000/release/'
+// const updateUrl = 'https://github.com/Fanyeyuan/forwarding_tool/releases/last'
 
 const checkUpdate = (win) =>{
 	//处理更新操作
@@ -26,7 +27,11 @@ const checkUpdate = (win) =>{
     };
 
 	//更新连接
-	autoUpdater.setFeedURL(updateUrl);
+	// autoUpdater.setFeedURL(updateUrl);
+    // const log = require("electron-log")
+    // log.transports.file.level = "debug"
+    // autoUpdater.logger = log
+    autoUpdater.checkForUpdatesAndNotify()
 
 	//更新错误事件
 	autoUpdater.on('error', function (error) {
@@ -75,7 +80,7 @@ const checkUpdate = (win) =>{
 	}
 
 	//发送请求更新
-	autoUpdater.checkForUpdates();
+	//autoUpdater.checkForUpdates();
 }
 
 export {

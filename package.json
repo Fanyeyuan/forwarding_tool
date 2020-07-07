@@ -1,6 +1,6 @@
 {
   "name": "jiutian",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,7 +10,8 @@
     "electron:build": "vue-cli-service electron:build --win --x64",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "publish": "vue-cli-service electron:build --win --x64 -p always"
   },
   "main": "background.js",
   "dependencies": {

@@ -30,9 +30,65 @@
             </div>
         </div>
         <el-divider></el-divider>
+        <el-table
+            :data="eleTable"
+            style="width: 100%"
+            height="250"
+            stripe>
+            <el-table-column
+            prop="name"
+            label="名称"
+            width="180">
+            <template slot-scope="scope">
+                <el-input
+                v-model="scope.row.name"
+                clearable
+                v-if="scope.row === eleEditLine">
+                </el-input>
+                <span v-else>{{scope.row.name}}</span>
+            </template>
+            </el-table-column>
+            <el-table-column
+            prop="range"
+            label="量程"
+            width="180">
+            <template slot-scope="scope">
+                <el-input
+                v-model="scope.row.range"
+                clearable
+                v-if="scope.row === eleEditLine">
+                </el-input>
+                <span v-else>{{scope.row.range}}</span>
+            </template>
+            </el-table-column>
+            <el-table-column
+            prop="sign"
+            label="标识">
+            <template slot-scope="scope">
+                <el-input
+                v-model="scope.row.sign"
+                clearable
+                v-if="scope.row === eleEditLine">
+                </el-input>
+                <span v-else>{{scope.row.sign}}</span>
+            </template>
+            </el-table-column>
+            <el-table-column
+            fixed="right"
+            label="操作"
+            width="180">
+            <template slot-scope="scope">
+                <el-button type="primary" icon="el-icon-edit" size="mini" circle v-if="scope.row !== eleEditLine" @click="onEditClick(scope.row)"></el-button>
+                <el-button type="success" icon="el-icon-check" size="mini" circle v-else @click="onEditClick(scope.row)"></el-button>
+                <el-button type="danger" icon="el-icon-delete" size="mini" circle @click="onDeleteClick(scope.$index)"></el-button>
+            </template>
+            </el-table-column>
+        </el-table>
+        <el-divider></el-divider>
         <div class="confirm">
             <el-button type="primary" round plain @click="save">确定</el-button>
         </div>
+
     </div>
 </template>
 
@@ -43,16 +99,29 @@ export default {
     data() {
         return {
             protocol: {},
+            eleTable: [],
+            eleEditLine: null,
         }
     },
     methods: {
         save(){
-            const result = db.update('settings', this.protocol.info.id, this.protocol.info)
-            console.log(result)
+            db.update('settings', this.protocol.info.id, this.protocol.info)
+            db.set('params', this.eleTable).write()
+        },
+        onEditClick(row){
+            if(!this.eleEditLine)
+                this.eleEditLine = row
+            else
+                this.eleEditLine = null
+        },
+        onDeleteClick(column){
+            this.eleTable.splice(column,1)
         }
     },
     mounted () {
         this.protocol = transmit.filter(ele => ele.sign === this.$route.name)[0]
+        this.eleTable = db.get("params")
+        console.log(this.eleTable)
     },
 }
 </script>
