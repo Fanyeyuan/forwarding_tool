@@ -1,6 +1,6 @@
 import Client from './common/mqtt'
 
-let serverUrl = 'mqtt://broker.emqx.io:1883'
+let serverUrl = 'mqtt://iotlink.houtucloud.net:666'
 let username = 'root'
 let password = '123456'
 
