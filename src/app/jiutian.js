@@ -1,7 +1,7 @@
 import Client from "./common/mqtt";
 
 let serverUrl = "mqtt://iotlink.houtucloud.net:666";
-let username = "root";
+let username = "root"; //0044988 老平台 设备  jiutian新平台
 let password = "123456";
 
 const topic = {

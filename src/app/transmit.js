@@ -24,6 +24,16 @@ const transDataFormat = (id, data) => {
     const sensor = eleTable.filter((param) => ele.eName === param.name);
     if (sensor.length) {
       // result.params.data[sensor[0].sign] = (0x7fff/ele.eValue)%10 !== 0?ele.eValue:'0'
+      if (
+        ele.eValue === 327670 ||
+        ele.eValue === 32767 ||
+        ele.eValue === 3276.7 ||
+        ele.eValue === 327.67 ||
+        ele.eValue === 32.767 ||
+        ele.eValue === 3.2767 ||
+        ele.eValue === 0.32767
+      )
+        continue;
       result.params.data[sensor[0].sign] = ele.eValue;
     }
   }
@@ -50,6 +60,17 @@ const transDataFormatMult = (index, id, data) => {
     const sensor = eleTable.filter((param) => eName[1] === param.name);
     if (sensor.length) {
       // result.params.data[sensor[0].sign] = (0x7fff/ele.eValue)%10 !== 0?ele.eValue:'0'
+      if (
+        ele.eValue == 327670 ||
+        ele.eValue == 32767 ||
+        ele.eValue == 3276.7 ||
+        ele.eValue == 327.67 ||
+        ele.eValue == 32.767 ||
+        ele.eValue == 3.2767 ||
+        ele.eValue == 0.32767
+      )
+        continue;
+      console.log(ele.eValue, typeof ele.eValue);
       result.params.data[sensor[0].sign] = ele.eValue;
     }
   }
@@ -142,7 +163,27 @@ const upload = (id, data) => {
           jt.topic.splitDeviceName(id, index + 1),
           data
         );
-        console.log(pk);
+        // if (index === 1) {
+        //   real = {
+        //     id: "JT0216068226",
+        //     method: "thing.event.property.post",
+        //     timeStamp: parseInt(new Date().getTime() / 1000),
+        //     params: {
+        //       status: 1,
+        //       data: {
+        //         "04017": "8.62", //土壤盐分
+        //         "04028": "8.03", //水层PH
+        //         "04016": "1160", //土壤盐分
+        //         "04027": "860", //水层盐分
+        //         "04014": "23.9", //土壤温度
+        //         "04015": "82", //土壤湿度
+        //         "04029": "24.6", //水层温度
+        //       },
+        //     },
+        //     version: "1.0",
+        //   };
+        // }
+        console.log(pk, JSON.stringify(real));
         jt.uploadData(
           pk,
           jt.topic.splitDeviceName(id, index + 1),

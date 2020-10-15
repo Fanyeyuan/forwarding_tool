@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class XPH {
-  baseUrl = "http://115.28.187.9:8005";
+  baseUrl = "http://47.105.215.208:8005";
   userInfo = {};
   devices = [];
   dataFreshTime = 0;
